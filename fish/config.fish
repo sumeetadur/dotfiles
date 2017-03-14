@@ -1,11 +1,21 @@
 set default_user "paulirish"
 set default_machine "paulirish-macbookair2"
 
-
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
 source ~/.config/fish/chpwd.fish
+source ~/.config/fish/functions.fish
+source ~/.config/fish/chromium.fish
 
+# for things not checked into git..
+if test -e "$HOME/.extra.fish"; 
+	source ~/.extra.fish
+end
+
+# THEME PURE #
+set fish_function_path /Users/paulirish/.config/fish/functions/pure $fish_function_path
+
+export GOPATH=$HOME/.go/
 
 # Completions
 function make_completion --argument-names alias command
@@ -20,8 +30,6 @@ function make_completion --argument-names alias command
 end
 
 make_completion g 'git'
-
-
 
 
 # Readline colors
@@ -51,7 +59,7 @@ set -g fish_color_separator 999
 # Git prompt status
 set -g __fish_git_prompt_showdirtystate 'yes'
 set -g __fish_git_prompt_showupstream auto
-
+set -g pure_git_untracked_dirty false
 
 # Status Chars
 #set __fish_git_prompt_char_dirtystate '*'
@@ -83,3 +91,6 @@ set -gx LESS_TERMCAP_so \e'[38;5;246m'    # begin standout-mode - info box
 set -gx LESS_TERMCAP_ue \e'[0m'           # end underline
 set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
+
+# this currently messes with newlines in my prompt. lets debug it later.
+# test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
