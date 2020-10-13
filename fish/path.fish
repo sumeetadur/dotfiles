@@ -18,18 +18,38 @@ for entry in (string split \n $PATH_DIRS)
 end
 
 # # rvm
-# if which -s rvm; 
+# if which -s rvm;
 # 	set PA $PA /Users/paulirish/.rvm/gems/ruby-2.2.1/bin
 # end
 
 
-set --export PATH $PA
+set -l paths "
+# yarn binary
+$HOME/.yarn/bin
+$GOPATH/bin
 
-# path for yarn globals
-if which -s yarn; 
-	set node_path (greadlink -f (which node))
-	set node_path_dir (string replace "bin/node" "bin" $node_path)
-	set PA $PA $node_path_dir
+# yarn global modules (hack for me)
+$HOME/.config/yarn/global/node_modules/.bin
+"
+
+for entry in (string split \n $paths)
+    # resolve the {$HOME} substitutions
+    set -l resolved_path (eval echo $entry)
+    if test -d "$resolved_path";
+        set PA $PA "$resolved_path"
+    end
+end
+
+# GO
+set PA $PA "/Users/paulirish/.go/bin"
+
+# `code` binary from VS Code insiders
+set PA $PA "/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin"
+
+
+# Google Cloud SDK.
+if test -f "$HOME/google-cloud-sdk/path.fish.inc"
+    source "$HOME/google-cloud-sdk/path.fish.inc"
 end
 
 set --export PATH $PA

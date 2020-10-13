@@ -2,6 +2,9 @@
 
 # Install command-line tools using Homebrew
 
+# (Optionally) Turn off brew's analytics https://docs.brew.sh/Analytics
+# brew analytics off
+
 # Make sure we’re using the latest Homebrew
 brew update
 
@@ -25,9 +28,6 @@ brew install bash
 brew install bash-completion
 
 brew install homebrew/completions/brew-cask-completion
-
-# generic colouriser  http://kassiopeia.juls.savba.sk/~garabik/software/grc/
-brew install grc
 
 # Install wget with IRI support
 brew install wget --with-iri
